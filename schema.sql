@@ -1,6 +1,7 @@
 -- entity
 CREATE TABLE users (
     username TEXT,
+    full_name TEXT,
     password TEXT,
     created_at DATETIME DEFAULT CURRENT_TIMESTAMP,
 
