@@ -20,10 +20,10 @@ INSERT INTO users (username, full_name, password) VALUES
 ('emma_R','Emma Richards','asdwad'),
 ('tvuong','Derek Vuong','derekvuong');
 
-INSERT INTO friends VALUES (username1, username2, accepted)
-('John Doe', 'janedoe', FALSE),
-('John Doe', 'mike123', FALSE),
-('John Doe', 'sarah_s', FALSE),
+INSERT INTO friends (username1, username2, accepted) VALUES
+('johndoe', 'janedoe', FALSE),
+('johndoe', 'mike123', FALSE),
+('johndoe', 'sarah_s', FALSE),
 ('janedoe', 'mike123', FALSE),
 ('janedoe', 'alice_92', FALSE),
 ('mike123', 'sarah_s', FALSE),
