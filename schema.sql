@@ -23,7 +23,6 @@ CREATE TABLE posts (
     id INTEGER AUTO INCREMENT,
     username TEXT,
     description TEXT,
-    image BLOB,
 
     PRIMARY KEY (id)
     FOREIGN KEY (username) REFERENCES users(username)
