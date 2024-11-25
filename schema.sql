@@ -2,9 +2,9 @@
 CREATE TABLE users (
     username TEXT,
     password TEXT,
-    created_at DATETIME DEFAULT CURRENT_TIMESTAMP
+    created_at DATETIME DEFAULT CURRENT_TIMESTAMP,
 
-    PRIMARY KEY (username);
+    PRIMARY KEY (username)
 );
 
 -- relation
@@ -13,29 +13,29 @@ CREATE TABLE friends (
     username2 TEXT,
     accepted BOOLEAN,
 
-    FOREIGN KEY (username1) REFERENCES users(username);
-    FOREIGN KEY (username2) REFERENCES users(username);
+    FOREIGN KEY (username1) REFERENCES users(username)
+    FOREIGN KEY (username2) REFERENCES users(username)
 );
 
 -- entity
 CREATE TABLE posts (
-    id INTEGER AUTOINCREMENT,
+    id INTEGER AUTO INCREMENT,
     username TEXT,
     description TEXT,
     image BLOB,
 
-    PRIMARY KEY (id);
-    FOREIGN KEY (username) REFERENCES users(username);
+    PRIMARY KEY (id)
+    FOREIGN KEY (username) REFERENCES users(username)
 );
 
 -- entity
 CREATE TABLE comments (
-    id INTEGER AUTOINCREMENT,
+    id INTEGER AUTO INCREMENT,
     post_id INTEGER,
     username TEXT,
     text TEXT,
 
-    PRIMARY KEY (id);
+    PRIMARY KEY (id)
     FOREIGN KEY (post_id) REFERENCES posts(id)
     FOREIGN KEY (username) REFERENCES users(username)
 );
@@ -47,13 +47,13 @@ CREATE TABLE post_likes (
 
     FOREIGN KEY (post_id) REFERENCES posts(id)
     FOREIGN KEY (username) REFERENCES users(username)
-)
+);
 
 -- relation
-CREATE TABLE comment_likes(
+CREATE TABLE comment_likes (
     comment_id INTEGER,
     username TEXT,
 
     FOREIGN KEY (comment_id) REFERENCES comments(id)
     FOREIGN KEY (username) REFERENCES users(username)
-)
+);
