@@ -18,4 +18,26 @@ INSERT INTO users (username, full_name, password) VALUES
 ('victoriaV','Victoria Vance','lolsiwd'),
 ('jasonW','Jason Williams','twhdwhuudwh'),
 ('emma_R','Emma Richards','asdwad'),
-('benjaminF','Benjamin Foster','ja9dwhj');
+('tvuong','Derek Vuong','derekvuong');
+
+INSERT INTO friends VALUES (username1, username2, accepted)
+('John Doe', 'janedoe', FALSE),
+('John Doe', 'mike123', FALSE),
+('John Doe', 'sarah_s', FALSE),
+('janedoe', 'mike123', FALSE),
+('janedoe', 'alice_92', FALSE),
+('mike123', 'sarah_s', FALSE),
+('mike123', 'tom_rock', FALSE),
+('sarah_s', 'emily89', FALSE),
+('alice_92', 'george22', FALSE),
+('alice_92', 'claire_97', FALSE),
+('tom_rock', 'andrew_h', FALSE),
+('emily89', 'jessicaL', FALSE),
+('george22', 'chris_k', FALSE),
+('claire_97', 'oliviaJ', FALSE),
+('andrew_h', 'matthewB', FALSE),
+('jessicaL', 'rachel_R', FALSE),
+('chris_k', 'nathanM', FALSE),
+('oliviaJ', 'victoriaV', FALSE),
+('matthewB', 'jasonW', FALSE),
+('rachel_R', 'emma_R', FALSE);
