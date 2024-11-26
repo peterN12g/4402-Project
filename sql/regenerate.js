@@ -4,8 +4,8 @@ import { open } from "sqlite";
 import sqlite3 from "sqlite3";
 import { readFile, rm } from "fs/promises";
 
-const schema = await readFile("schema.sql", "utf-8");
-const populate = await readFile("populate.sql", "utf-8");
+const schema = await readFile("sql/schema.sql", "utf-8");
+const populate = await readFile("sql/populate.sql", "utf-8");
 
 
 console.log("Reseting database...")

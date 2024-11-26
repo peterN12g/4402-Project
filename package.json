@@ -3,7 +3,7 @@
   "version": "1.0.0",
   "type": "module",
   "scripts": {
-    "reset": "node reset.js"
+    "regenerate": "node sql/regenerate.js"
   },
   "dependencies": {
     "sqlite": "^5.1.1",
