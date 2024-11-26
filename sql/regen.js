@@ -1,4 +1,4 @@
-// Deletes the existing database, creates tables, and populates with initial values
+// Deletes the existing database, creates new database, adds tables, and populates with initial values
 
 import { open } from "sqlite";
 import sqlite3 from "sqlite3";
