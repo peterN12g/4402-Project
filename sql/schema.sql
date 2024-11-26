@@ -20,7 +20,7 @@ CREATE TABLE friends (
 
 -- entity
 CREATE TABLE posts (
-    id INTEGER AUTO INCREMENT,
+    id INTEGER, -- don't need to explicitly set. will be auto incremented.
     username TEXT,
     description TEXT,
 
@@ -30,7 +30,7 @@ CREATE TABLE posts (
 
 -- entity
 CREATE TABLE comments (
-    id INTEGER AUTO INCREMENT,
+    id INTEGER, -- don't need to explicitly set. will be auto incremented.
     post_id INTEGER,
     username TEXT,
     text TEXT,
