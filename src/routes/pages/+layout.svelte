@@ -1,14 +1,15 @@
 <div class="layout-container">
     <div class="nav-column">
-      <a href="/pages/home" class="nav-link">Home</a>
-      <a href="/pages/friends" class="nav-link">Friends</a>
-      <a href="/pages/profile" class="nav-link">Profile</a>
+        <h1>𝕐</h1>
+        <a href="/pages/home" class="nav-link">Home</a>
+        <a href="/pages/friends" class="nav-link">Friends</a>
+        <a href="/pages/profile" class="nav-link">Profile</a>
     </div>
   
     <div class="content">
-      <slot />
+        <slot />
     </div>
-  </div>
+</div>
 
 <style>
     .layout-container {
@@ -18,11 +19,12 @@
   
     .nav-column {
       width: 200px;
-      background-color: #333;
       padding: 1rem;
       color: white;
       display: flex;
       flex-direction: column;
+      margin-top: 10%;
+      margin-left: 15%;
     }
   
     .nav-link {
@@ -32,6 +34,7 @@
       margin: 5px 0;
       border-radius: 4px;
       transition: background-color 0.3s;
+      font-size: 2em;
     }
   
     .nav-link:hover {
