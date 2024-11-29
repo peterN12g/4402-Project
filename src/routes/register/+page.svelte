@@ -9,7 +9,7 @@
         <h3>Join today.</h3>
         <div class="form__group field">
             <input type="input" class="form__field" placeholder="Name" name="name" id="name" required />
-            <label for="name" class="form__label">Name</label>
+            <label for="name" class="form__label">Full Name</label>
         </div>
         <div class="form__group field">
             <input type="input" class="form__field" placeholder="Username" name="username" id="username" required />
@@ -19,7 +19,10 @@
             <input type="password" class="form__field" placeholder="Password" name="password" id="password" required />
             <label for="password" class="form__label">Password</label>
         </div>
-        <button type="button">Sign up</button>
+        <div class="buttons">
+            <button type="button">Sign up</button>
+            <a href="/login" class="login">Login</a>
+        </div>
     </div>
 </div>
 
@@ -28,14 +31,13 @@
         display: flex;
         align-items: center;
         justify-content: space-evenly;
-        padding: 10px;    
     }
 
     h1 {
         color: white;
         text-align: left;
         font-family: 'Brush Script MT', cursive;
-        font-size: 22em;
+        font-size: 2000%;
     }
 
     h2 {
@@ -116,6 +118,16 @@
         width: 30%;
         margin-left: 8%;
         background-color: rgb(26, 140, 216);
+    }
+
+    .buttons{
+        display: flex;
+        flex-direction: column;
+    }
+
+    .login{
+        margin-left: 20%;
+        margin-top: 2%;
     }
 </style>
     
