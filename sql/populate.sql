@@ -21,26 +21,26 @@ INSERT INTO users (username, full_name, password) VALUES
 ('tvuong','Derek Vuong','derekvuong');
 
 INSERT INTO friends (username1, username2, accepted) VALUES
-('johndoe', 'janedoe', FALSE),
+('johndoe', 'janedoe', TRUE),
 ('johndoe', 'mike123', FALSE),
-('johndoe', 'sarah_s', FALSE),
-('janedoe', 'mike123', FALSE),
+('johndoe', 'sarah_s', TRUE),
+('janedoe', 'mike123', TRUE),
 ('janedoe', 'alice_92', FALSE),
-('mike123', 'sarah_s', FALSE),
+('mike123', 'sarah_s', TRUE),
 ('mike123', 'tom_rock', FALSE),
 ('sarah_s', 'emily89', FALSE),
-('alice_92', 'george22', FALSE),
+('alice_92', 'george22', TRUE),
 ('alice_92', 'claire_97', FALSE),
-('tom_rock', 'andrew_h', FALSE),
-('emily89', 'jessicaL', FALSE),
+('tom_rock', 'andrew_h', TRUE),
+('emily89', 'jessicaL', TRUE),
 ('george22', 'chris_k', FALSE),
 ('claire_97', 'oliviaJ', FALSE),
 ('andrew_h', 'matthewB', FALSE),
 ('jessicaL', 'rachel_R', FALSE),
-('chris_k', 'nathanM', FALSE),
-('oliviaJ', 'victoriaV', FALSE),
+('chris_k', 'nathanM', TRUE),
+('oliviaJ', 'victoriaV', TRUE),
 ('matthewB', 'jasonW', FALSE),
-('rachel_R', 'emma_R', FALSE);
+('rachel_R', 'emma_R', TRUE);
 
 INSERT INTO posts (username, description) VALUES
 ('mike123','Had an amazing trip to the beach!'),
