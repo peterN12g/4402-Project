@@ -1,18 +1,39 @@
-<div class="wrapper">
+<script>
+    import { page } from '$app/stores';
+
+    const msg = $derived($page.url.searchParams.get("msg"));
+    const err = $derived($page.url.searchParams.get("err"));
+</script>
+
+<form class="wrapper" method="post">
     <h1>Login</h1>
     <div class="form__group field">
-        <input type="input" class="form__field" placeholder="Username" name="username" id="username" required />
+        <input
+            type="input"
+            class="form__field"
+            placeholder="Username"
+            name="username"
+            id="username"
+        />
         <label for="username" class="form__label">Username</label>
     </div>
     <div class="form__group field">
-        <input type="password" class="form__field" placeholder="Password" name="password" id="password" required />
+        <input
+            type="password"
+            class="form__field"
+            placeholder="Password"
+            name="password"
+            id="password"
+        />
         <label for="password" class="form__label">Password</label>
     </div>
-    <button type="button">Login</button>
+    <button type="submit">Login</button>
     <a href="/register" class="register">Register</a>
-</div>
-<div> </div>
+</form>
 
+{#if msg }
+    <div class="msg" class:err>{msg}</div>
+{/if}
 
 <style>
     .wrapper {
@@ -77,7 +98,8 @@
         font-weight: 700;
     }
 
-    .form__field:required, .form__field:invalid {
+    .form__field:required,
+    .form__field:invalid {
         box-shadow: none;
     }
 
@@ -92,7 +114,16 @@
         font-size: 3em;
     }
 
-    .register{
+    .register {
         margin-top: 1%;
+    }
+
+    .msg {
+        padding-top: 100px;
+        text-align: center;
+    }
+
+    .err {
+        color: red;
     }
 </style>
