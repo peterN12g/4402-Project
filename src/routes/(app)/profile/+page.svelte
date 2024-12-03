@@ -1,37 +1,19 @@
 <script lang="ts">
+    import { goto } from '$app/navigation';
     export const { data } = $props();
 
-    function displayInfo(info: string): void {
-        const x = document.getElementsByClassName("tab-content") as HTMLCollectionOf<HTMLElement>;
-        for (let i = 0; i < x.length; i++) {
-            x[i].style.display = "none";  
-        }
-                const element = document.getElementById(info) as HTMLElement | null;
-        if (element) {
-            element.style.display = "block";
-        }
+    async function logout() {
+        await fetch('/logout', { method: 'GET' });
+        goto('/login?msg=Logged out');
     }
+
 </script>
 
 <div class="wrapper">
-    <h1>
-        {data.username}
-    </h1>
-    <h2>
-        {data.fullName}
-    </h2>
-    <div class="buttons">
-        <button onclick={() => displayInfo('posts')}>Posts</button>
-        <button onclick={() => displayInfo('friends')}>Friends</button>
-    </div>
-    <div id="posts" class="tab-content" style="display:none;">
-        <h2>Posts</h2>
-        <p>Here are the posts...</p>
-    </div>
-    <div id="friends" class="tab-content" style="display:none;">
-        <h2>Friends</h2>
-        <p>Here is your friends list...</p>
-    </div>
+    <h1>{data.username}</h1>
+    <h2>{data.fullName}</h2>
+    <button onclick={logout}>Logout</button>
+    <button class='private'>Go Private</button>
 </div>
 
 <style>
@@ -61,25 +43,13 @@
         margin: 5px;
         font-size: 16px;
         cursor: pointer;
-        background-color: black;
+        background-color: gray;
         color: white;
-        border-bottom: 2px solid #9b9b9b;
-        border-left: black;
-        border-top: black;
+        border: 2px solid white;
         width: 30%;
     }
-
-    .tab-content {
-        display: none;
-        text-align: center;
-        margin-top: 20px;
-    }
-
-    .tab-content h2 {
-        font-size: 24px;
-    }
-
     button:hover {
         background-color: #252323;
     }
+
 </style>
