@@ -1,7 +1,6 @@
 // Deletes the existing database, creates new database, adds tables, and populates with initial values
 
-import { open } from "sqlite";
-import sqlite3 from "sqlite3";
+import Database from 'better-sqlite3';
 import { readFile, rm, access, constants } from "node:fs/promises";
 
 const dbFile = "database.sqlite3";
@@ -20,27 +19,37 @@ async function removeExistingDatabase() {
     await rm(dbFile);
 }
 
-async function createDatabase() {
+/**
+ * @returns { import("better-sqlite3").Database }
+ */
+function createDatabase() {
     console.log("creating database...");
-    return await open({
-        filename: dbFile,
-        mode: sqlite3.OPEN_CREATE | sqlite3.OPEN_READWRITE,
-        driver: sqlite3.Database,
+    const db = new Database(dbFile, {
+        readonly: false,
+        fileMustExist: false,
     });
+    db.pragma("journal_mode = WAL");
+    return db;
 }
 
-async function addTables(db) {
+/**
+ * @param { import("better-sqlite3").Database } db
+ */
+function addTables(db) {
     console.log("adding tables...");
-    await db.exec(schema);
+    db.exec(schema);
 }
 
-async function populateTables(db) {
+/**
+ * @param { import("better-sqlite3").Database } db
+ */
+function populateTables(db) {
     console.log("populating tables...");
-    await db.exec(populate);
+    db.exec(populate);
 }
 
 await removeExistingDatabase();
-const db = await createDatabase();
-await addTables(db);
-await populateTables(db);
+const db = createDatabase();
+addTables(db);
+populateTables(db);
 console.log("done")

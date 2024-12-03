@@ -1,12 +1,11 @@
 import { error, json } from '@sveltejs/kit';
 import { db, userFromCookies } from '$lib/server';
-import sql from "sql-template-tag";
 
 export async function GET({ cookies }) {
     const user = await userFromCookies(cookies);
     if (user === undefined) error(401);
 
-    const posts = await db.all(sql`
+    const posts = db.sql`
         WITH
             my_friends AS (
                 SELECT friends.username1 AS username
@@ -29,7 +28,7 @@ export async function GET({ cookies }) {
         FROM visible_posts, post_likes, comments
         WHERE visible_posts.id = post_likes.post_id AND visible_posts.id = comments.post_id
         GROUP BY visible_posts.id
-    `);
+    `.all();
     
     return json(posts);
 }

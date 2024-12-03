@@ -1,6 +1,5 @@
 import { error } from '@sveltejs/kit';
 import { db, userFromCookies } from '$lib/server';
-import sql from "sql-template-tag";
 
 export async function POST({ request, cookies }) {
     const user = await userFromCookies(cookies);
@@ -8,10 +7,10 @@ export async function POST({ request, cookies }) {
     const { commentId  } = await request.json();
     if (commentId  === undefined) error(401);
 
-    await db.all(sql`
+    db.sql`
         DELETE FROM comments
         WHERE id = ${commentId} AND username = ${user};
-        `);
+    `.all();
         
-        return new Response();
+    return new Response();
 }
