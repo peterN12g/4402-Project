@@ -1,9 +1,9 @@
 <div class="layout-container">
     <div class="nav-column">
         <h1>𝕐</h1>
-        <a href="/pages/home" class="nav-link">Home</a>
-        <a href="/pages/friends" class="nav-link">Friends</a>
-        <a href="/pages/profile" class="nav-link">Profile</a>
+        <a href="./posts" class="nav-link">Home</a>
+        <a href="./friends" class="nav-link">Friends</a>
+        <a href="./profile" class="nav-link">Profile</a>
     </div>
   
     <div class="content">
