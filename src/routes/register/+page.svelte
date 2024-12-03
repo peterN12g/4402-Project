@@ -4,26 +4,26 @@
 
 <div class="header">
     <h1>𝕐</h1>
-    <div>
+    <form method="POST">
         <h2>Happening now</h2>
         <h3>Join today.</h3>
         <div class="form__group field">
-            <input type="input" class="form__field" placeholder="Name" name="name" id="name" required />
+            <input type="input" class="form__field" placeholder="Name" name="full_name" id="name" required minlength="1" />
             <label for="name" class="form__label">Full Name</label>
         </div>
         <div class="form__group field">
-            <input type="input" class="form__field" placeholder="Username" name="username" id="username" required />
+            <input type="input" class="form__field" placeholder="Username" name="username" id="username" required minlength="3" />
             <label for="username" class="form__label">Username</label>
         </div>
         <div class="form__group field">
-            <input type="password" class="form__field" placeholder="Password" name="password" id="password" required />
+            <input type="password" class="form__field" placeholder="Password" name="password" id="password" required minlength="6" />
             <label for="password" class="form__label">Password</label>
         </div>
         <div class="buttons">
-            <button type="button">Sign up</button>
+            <button type="submit">Register</button>
             <a href="/login" class="login">Login</a>
         </div>
-    </div>
+    </form>
 </div>
 
 <style>
