@@ -5,12 +5,12 @@ import sql from "sql-template-tag";
 export async function POST({ request, cookies }) {
     const user = await userFromCookies(cookies);
     if (user === undefined) error(401);
-    const { description } = await request.json();
-    if (description === '') { throw error(401, 'need message');}
+    const { commentId  } = await request.json();
+    if (commentId  === undefined) error(401);
 
     await db.all(sql`
-        INSERT INTO posts (username, description) 
-        VALUES (${user}, ${description});
+        DELETE FROM comments
+        WHERE id = ${commentId} AND username = ${user};
         `);
         
         return new Response();
