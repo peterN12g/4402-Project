@@ -1,4 +1,6 @@
 <script lang="ts">
+    export const { data } = $props();
+
     function displayInfo(info: string): void {
         const x = document.getElementsByClassName("tab-content") as HTMLCollectionOf<HTMLElement>;
         for (let i = 0; i < x.length; i++) {
@@ -13,14 +15,14 @@
 
 <div class="wrapper">
     <h1>
-        Full Name
+        {data.username}
     </h1>
     <h2>
-        Username
+        {data.fullName}
     </h2>
     <div class="buttons">
-        <button on:click={() => displayInfo('posts')}>Posts</button>
-        <button on:click={() => displayInfo('friends')}>Friends</button>
+        <button onclick={() => displayInfo('posts')}>Posts</button>
+        <button onclick={() => displayInfo('friends')}>Friends</button>
     </div>
     <div id="posts" class="tab-content" style="display:none;">
         <h2>Posts</h2>
