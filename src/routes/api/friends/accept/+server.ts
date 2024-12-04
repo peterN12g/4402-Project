@@ -1,4 +1,4 @@
-import { error, json } from '@sveltejs/kit';
+import { error } from '@sveltejs/kit';
 import { db, userFromCookies } from '$lib/server';
 
 export async function GET({ cookies }) {

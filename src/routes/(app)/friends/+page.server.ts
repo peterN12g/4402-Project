@@ -1,9 +1,11 @@
-import { error, json } from '@sveltejs/kit';
+import { error } from '@sveltejs/kit';
 import { db, userFromCookies } from '$lib/server';
 
-export async function GET({ cookies }) {
+export async function load ({ cookies }) {
     const user = await userFromCookies(cookies);
-    if (user === undefined) error(401);
+    if (!user) {
+        throw error(401, 'Unauthorized');
+    }
 
     const friends = db.sql`
         SELECT users.username, users.full_name FROM friends, users
@@ -12,6 +14,7 @@ export async function GET({ cookies }) {
         SELECT users.username, users.full_name FROM friends, users
         WHERE friends.username1 = ${user} AND users.username = friends.username2
     `.all();
-    
-    return json(friends);
-}
+    console.log("Friends list:", friends);
+    return { friends };
+};
+

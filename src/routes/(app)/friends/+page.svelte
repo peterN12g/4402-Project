@@ -1,15 +1,12 @@
 <script lang="ts">
+    export let friends: { username: string; full_name: string }[] = [];
     let activeTab: string = "friends";
     function showTab(tabName: string): void {
         activeTab = tabName;
     }
-    let friends: { name: string }[] = [
-        { name: "johndoe" },
-        { name: "janedoe" },
-    ];
-    let friendRequests: { name: string }[] = [
-        { name: "mike123" },
-        { name: "alice_92" },
+    let friendRequests: { username: string, full_name: string }[] = [
+        { username: "mike123", full_name: "Mike Johnson" },
+        { username: "alice_92", full_name: "Alice Brown" },
     ];
     function acceptFriendRequest(index: number): void {
         friends = [...friends, friendRequests[index]];
@@ -26,7 +23,8 @@
     <div class="friend-list">
         {#each friends as friend, index}
         <div class="friend-request">
-            <p><strong>Name:</strong> {friend.name}</p>
+            <p><strong>Name:</strong> {friend.username}</p>
+            <p><strong>Full name:</strong>{friend.full_name}</p>
         </div>
         {/each}
     </div>
@@ -35,7 +33,8 @@
     <div class="friend-list">
         {#each friendRequests as request, index}
         <div class="friend-request">
-            <p><strong>Name:</strong> {request.name}</p>
+            <p><strong>Name:</strong> {request.username}</p>
+            <p><strong>Full name:</strong>{request.full_name}</p>
             <button class="add-button" on:click={() => acceptFriendRequest(index)}>Accept</button>
         </div>
         {/each}
