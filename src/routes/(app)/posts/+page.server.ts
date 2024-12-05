@@ -30,6 +30,7 @@ export async function load({ cookies }) {
             (SELECT COUNT(*) FROM comments WHERE posts.id = comments.post_id) AS comments
         FROM posts
         WHERE posts.username IN my_friends OR posts.username = ${user}
+        ORDER BY posts.created_at DESC
     `.all() as Post[];
     
     return { posts };

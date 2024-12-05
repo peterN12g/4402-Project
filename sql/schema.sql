@@ -4,7 +4,6 @@ CREATE TABLE users (
     full_name TEXT,
     password TEXT,
     public BOOLEAN,
-    created_at DATETIME DEFAULT CURRENT_TIMESTAMP,
 
     PRIMARY KEY (username)
 );
@@ -24,6 +23,7 @@ CREATE TABLE posts (
     id INTEGER, -- don't need to explicitly set. will be auto incremented.
     username TEXT,
     description TEXT,
+    created_at DATETIME DEFAULT CURRENT_TIMESTAMP,
 
     PRIMARY KEY (id)
     FOREIGN KEY (username) REFERENCES users(username) ON DELETE CASCADE
@@ -35,6 +35,7 @@ CREATE TABLE comments (
     post_id INTEGER,
     username TEXT,
     text TEXT,
+    created_at DATETIME DEFAULT CURRENT_TIMESTAMP,
 
     PRIMARY KEY (id)
     FOREIGN KEY (post_id) REFERENCES posts(id) ON DELETE CASCADE
