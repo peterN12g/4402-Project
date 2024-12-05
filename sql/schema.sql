@@ -3,6 +3,7 @@ CREATE TABLE users (
     username TEXT,
     full_name TEXT,
     password TEXT,
+    public BOOLEAN,
     created_at DATETIME DEFAULT CURRENT_TIMESTAMP,
 
     PRIMARY KEY (username)

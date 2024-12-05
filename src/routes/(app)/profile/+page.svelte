@@ -3,8 +3,16 @@
     export const { data } = $props();
 
     async function logout() {
-        await fetch('/logout', { method: 'GET' });
+        await fetch('/logout', { 
+            method: 'GET' 
+        });
         goto('/login?msg=Logged out');
+    }
+
+    async function go_private() {
+        await fetch ('/api/posts/private', {
+            method: 'POST'
+        });
     }
 
 </script>
@@ -13,7 +21,7 @@
     <h1>{data.username}</h1>
     <h2>{data.fullName}</h2>
     <button onclick={logout}>Logout</button>
-    <button class='private'>Go Private</button>
+    <button class='private' onclick={go_private}>Go Private</button>
 </div>
 
 <style>
