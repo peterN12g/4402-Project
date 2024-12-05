@@ -25,6 +25,13 @@
         });
         location.reload();
     }
+    async function rejectRequest(username:string) {
+        await fetch('/api/friends/reject', {
+            method: 'DELETE',
+            body: JSON.stringify({ username }),
+        });
+        location.reload();
+    }
 </script>
 
 <h1>Friends and Requests</h1>
@@ -51,6 +58,7 @@
             <p><strong>Name:</strong> {request.username}</p>
             <p><strong>Full name:</strong>{request.full_name}</p>
             <button class="add-button" onclick={() => acceptFriend(request.username)}>Accept</button>
+            <button class="reject" onclick={() => rejectRequest(request.username)}>Reject</button>
         </div>
         {/each}
     </div>
@@ -106,7 +114,7 @@
         border-radius: 5px;
     }
 
-    .add-button, .add, .remove {
+    .add-button, .add, .remove, .reject {
         margin-top: 10px;
         padding: 10px 15px;
         background-color: white;
