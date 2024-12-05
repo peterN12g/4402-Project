@@ -15,8 +15,8 @@ CREATE TABLE friends (
     username2 TEXT,
     accepted BOOLEAN,
 
-    FOREIGN KEY (username1) REFERENCES users(username)
-    FOREIGN KEY (username2) REFERENCES users(username)
+    FOREIGN KEY (username1) REFERENCES users(username) ON DELETE CASCADE
+    FOREIGN KEY (username2) REFERENCES users(username) ON DELETE CASCADE
 );
 
 -- entity
@@ -26,7 +26,7 @@ CREATE TABLE posts (
     description TEXT,
 
     PRIMARY KEY (id)
-    FOREIGN KEY (username) REFERENCES users(username)
+    FOREIGN KEY (username) REFERENCES users(username) ON DELETE CASCADE
 );
 
 -- entity
@@ -37,8 +37,8 @@ CREATE TABLE comments (
     text TEXT,
 
     PRIMARY KEY (id)
-    FOREIGN KEY (post_id) REFERENCES posts(id)
-    FOREIGN KEY (username) REFERENCES users(username)
+    FOREIGN KEY (post_id) REFERENCES posts(id) ON DELETE CASCADE
+    FOREIGN KEY (username) REFERENCES users(username) ON DELETE CASCADE
 );
 
 -- relation
@@ -46,8 +46,8 @@ CREATE TABLE post_likes (
     post_id INTEGER,
     username TEXT,
 
-    FOREIGN KEY (post_id) REFERENCES posts(id)
-    FOREIGN KEY (username) REFERENCES users(username)
+    FOREIGN KEY (post_id) REFERENCES posts(id) ON DELETE CASCADE
+    FOREIGN KEY (username) REFERENCES users(username) ON DELETE CASCADE
 );
 
 -- relation
@@ -55,6 +55,6 @@ CREATE TABLE comment_likes (
     comment_id INTEGER,
     username TEXT,
 
-    FOREIGN KEY (comment_id) REFERENCES comments(id)
-    FOREIGN KEY (username) REFERENCES users(username)
+    FOREIGN KEY (comment_id) REFERENCES comments(id) ON DELETE CASCADE
+    FOREIGN KEY (username) REFERENCES users(username) ON DELETE CASCADE
 );
