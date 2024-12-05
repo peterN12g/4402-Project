@@ -4,45 +4,64 @@
     function showTab(tabName: string): void {
         activeTab = tabName;
     }
-    let friendRequests: { username: string, full_name: string }[] = [
-        { username: "mike123", full_name: "Mike Johnson" },
-        { username: "alice_92", full_name: "Alice Brown" },
-    ];
+    async function sendRequest(username:string) {
+        await fetch('/api/friends/request', {
+            method: 'POST',
+            body: JSON.stringify({ username }),
+        });
+        location.reload();
+    }
+    async function removeFriend(username:string) {
+        await fetch('/api/friends/remove', {
+            method: 'DELETE',
+            body: JSON.stringify({ username }),
+        });
+        location.reload();
+    }
+    async function acceptFriend(username:string) {
+        await fetch('/api/friends/accept', {
+            method: 'POST',
+            body: JSON.stringify({ username }),
+        });
+        location.reload();
+    }
 </script>
 
 <h1>Friends and Requests</h1>
 <div class="tabs">
-    <button class="tab {activeTab === 'friends' ? 'active' : ''}" on:click={() => showTab("friends")} aria-pressed="{activeTab === 'friends'}">Friends</button>
-    <button class="tab {activeTab === 'requests' ? 'active' : ''}" on:click={() => showTab("requests")} aria-pressed="{activeTab === 'requests'}">Requests</button>
-    <button class="tab {activeTab === 'users' ? 'active' : ''}" on:click={() => showTab("users")} aria-pressed="{activeTab === 'users'}">Users</button>
+    <button class="tab {activeTab === 'friends' ? 'active' : ''}" onclick={() => showTab("friends")} aria-pressed="{activeTab === 'friends'}">Friends</button>
+    <button class="tab {activeTab === 'requests' ? 'active' : ''}" onclick={() => showTab("requests")} aria-pressed="{activeTab === 'requests'}">Requests</button>
+    <button class="tab {activeTab === 'users' ? 'active' : ''}" onclick={() => showTab("users")} aria-pressed="{activeTab === 'users'}">Users</button>
 </div>
 <div id="friends" class="content {activeTab === 'friends' ? '' : 'hidden'}">
     <div class="friend-list">
-        {#each data.friends as friend, index}
+        {#each data.friends as friend}
         <div class="friend-request">
             <p><strong>Name:</strong> {friend.username}</p>
             <p><strong>Full name:</strong>{friend.full_name}</p>
+            <button class="remove" onclick={() => removeFriend( friend.username )}>Remove</button>
         </div>
         {/each}
     </div>
 </div>
 <div id="requests" class="content {activeTab === 'requests' ? '' : 'hidden'}">
     <div class="friend-list">
-        {#each friendRequests as request, index}
+        {#each data.request as request}
         <div class="friend-request">
             <p><strong>Name:</strong> {request.username}</p>
             <p><strong>Full name:</strong>{request.full_name}</p>
-            <button class="add-button">Accept</button>
+            <button class="add-button" onclick={() => acceptFriend(request.username)}>Accept</button>
         </div>
         {/each}
     </div>
 </div>
 <div id="send-request" class="content {activeTab === 'users' ? '' : 'hidden'}">
-    {#each data.nonFriends as nonfriend, index}
+    {#each data.nonFriends as nonfriend}
     <div class="friend-list">
         <div class="friend-request">
             <p><strong>Name:</strong> {nonfriend.username}</p>
             <p><strong>Full name:</strong>{nonfriend.full_name}</p> 
+            <button class="add" onclick={() => sendRequest(nonfriend.username)}>Friend Request</button>
         </div>
     </div>
     {/each}
@@ -87,7 +106,7 @@
         border-radius: 5px;
     }
 
-    .add-button {
+    .add-button, .add, .remove {
         margin-top: 10px;
         padding: 10px 15px;
         background-color: white;

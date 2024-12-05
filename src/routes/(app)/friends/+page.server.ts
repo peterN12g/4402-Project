@@ -12,6 +12,12 @@ type NonFriend = {
     full_name: string;
 }
 
+type Request = {
+    username: string;
+    full_name: string;
+    accepted: boolean;
+}
+
 export async function load ({ cookies }) {
     const user = await userFromCookies(cookies);
     if (!user) {
@@ -21,10 +27,10 @@ export async function load ({ cookies }) {
     return db.transact(() => {
         const friends = db.sql`
             SELECT users.username, users.full_name, friends.accepted FROM friends, users
-            WHERE friends.username2 = ${user} AND users.username = friends.username1
+            WHERE friends.username2 = ${user} AND users.username = friends.username1 AND friends.accepted = true
             UNION ALL
             SELECT users.username, users.full_name, friends.accepted FROM friends, users
-            WHERE friends.username1 = ${user} AND users.username = friends.username2
+            WHERE friends.username1 = ${user} AND users.username = friends.username2 AND friends.accepted = true
             `.all() as Friend[];
         
         const nonFriends = db.sql`
@@ -38,8 +44,13 @@ export async function load ({ cookies }) {
             
             SELECT username, full_name FROM users
             WHERE username NOT IN my_friends AND username != ${user}
-        `.all() as Friend[];
+        `.all() as NonFriend[];
 
-        return { friends, nonFriends };
+        const request = db.sql`
+        SELECT users.username, users.full_name, friends.accepted FROM friends
+        JOIN users ON users.username = friends.username1
+        WHERE friends.username2 = ${user} AND friends.accepted = false
+        `.all() as Request[];
+        return { friends, nonFriends, request };
     });
 };
