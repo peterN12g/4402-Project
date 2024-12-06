@@ -8,20 +8,12 @@
         });
         goto('/login?msg=Logged out');
     }
-
-    async function go_private() {
-        await fetch ('/api/posts/private', {
-            method: 'POST'
-        });
-    }
-
 </script>
 
 <div class="wrapper">
     <h1>{data.username}</h1>
     <h2>{data.fullName}</h2>
     <button onclick={logout}>Logout</button>
-    <button class='private' onclick={go_private}>Go Private</button>
 </div>
 
 <style>

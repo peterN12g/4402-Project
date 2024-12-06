@@ -42,7 +42,6 @@ function populateTables(db: DatabaseWrapper) {
             username: string,
             fullName: string,
             password: string,
-            isPublic: boolean,
         }[] = [];
         for (let i = 0; i < 30; i++) {
             const opts = {
@@ -54,7 +53,6 @@ function populateTables(db: DatabaseWrapper) {
                 username: faker.internet.username(opts),
                 fullName: faker.person.fullName(opts),
                 password: faker.internet.password({ memorable: true }),
-                isPublic: faker.number.float() < 0.33,
             });
         }
         return users;
@@ -62,8 +60,8 @@ function populateTables(db: DatabaseWrapper) {
    
     for (const u of users) {
         db.sql`
-            INSERT INTO users (username, full_name, password, public)
-            VALUES (${u.username}, ${u.fullName}, ${u.password}, ${u.isPublic ? 1 : 0})
+            INSERT INTO users (username, full_name, password)
+            VALUES (${u.username}, ${u.fullName}, ${u.password})
         `.run();
     }
 
