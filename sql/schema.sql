@@ -1,6 +1,6 @@
 -- entity
 CREATE TABLE users (
-    username TEXT,
+    username TEXT COLLATE NOCASE,
     full_name TEXT,
     password TEXT,
     public BOOLEAN,
