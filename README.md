@@ -2,7 +2,7 @@
 
 #### Set up environment
 
-1. Install [NodeJS](https://nodejs.org/).
+1. Install [NodeJS](https://nodejs.org/). Must install version v22.6.0 or later.
 2. Run `npm install`.
 
 #### Initialize the database
