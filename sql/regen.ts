@@ -8,7 +8,6 @@ const dbFile = "database.sqlite3";
 const seed = 123456789;
 
 const schema = await readFile("sql/schema.sql", "utf-8");
-const populate = await readFile("sql/populate.sql", "utf-8");
 
 async function removeExistingDatabase() {
     try {
