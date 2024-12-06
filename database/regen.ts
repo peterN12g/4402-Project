@@ -1,13 +1,13 @@
 // Deletes the existing database, creates new database, adds tables, and populates with initial values
 
 import { faker } from '@faker-js/faker';
-import { DatabaseWrapper } from "../database/wrapper.ts";
+import { DatabaseWrapper } from "./wrapper.ts";
 import { readFile, rm, access, constants } from "node:fs/promises";
 
 const dbFile = "database.sqlite3";
 const seed = 123456789;
 
-const schema = await readFile("sql/schema.sql", "utf-8");
+const schema = await readFile("database/schema.sql", "utf-8");
 
 async function removeExistingDatabase() {
     try {

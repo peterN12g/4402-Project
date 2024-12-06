@@ -3,7 +3,7 @@
   "version": "1.0.0",
   "type": "module",
   "scripts": {
-    "regen": "node --experimental-strip-types sql/regen.ts",
+    "regen": "node --experimental-strip-types database/regen.ts",
     "app": "vite dev"
   },
   "devDependencies": {
