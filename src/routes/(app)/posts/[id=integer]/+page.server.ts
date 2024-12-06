@@ -49,10 +49,29 @@ export async function load({ cookies, params }) {
 
         const comments = db.sql`
             SELECT comments.*, COUNT(comment_likes.username) AS likes
-            FROM comments, comment_likes
-            WHERE comments.post_id = ${post.id} AND comment_likes.comment_id = comments.id
+            FROM comments
+            LEFT JOIN comment_likes ON comment_likes.comment_id = comments.id
+            WHERE comments.post_id = ${post.id}
+            GROUP BY comments.id
         `.all() as Comment[];
 
         return { post, isAuthor, comments };
     });
 }
+
+export const actions = {
+	default: async ({ cookies, request, params }) => {
+        const user = await userFromCookies(cookies);
+        if (user === undefined) error(401);
+
+        const data = await request.formData();
+        const text = data.get("description");
+        if (typeof text !== "string") error(400);
+        const postId = params.id;
+    
+        db.sql`
+            INSERT INTO comments (post_id, username, text) 
+            VALUES (${postId}, ${user}, ${text});
+        `.run();
+    }
+};
