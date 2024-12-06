@@ -1,9 +1,61 @@
-<script>
+<script lang="ts">
     const { data } = $props();
 
     async function onDelete() {
         await fetch(`/posts/${data.post.id}`, { method: "delete" });
         location.href = "/posts";
+    }
+
+    async function onLike(event: MouseEvent) {
+        const button = event.currentTarget as HTMLButtonElement;
+        const postId = parseInt(button.dataset.postId || '0');
+        const response = await fetch(`/posts/${data.post.id}/post-likes`, {
+            method: "POST",
+        });
+        if (response.ok) {
+            const updatedData = await response.json();
+            data.post.likes = updatedData.likes;
+            const likeButton = document.getElementById(`like-button-${postId}`);
+            if (likeButton) {
+                likeButton.textContent = data.post.likes > 0 ? "Unlike" : "Like";
+            } else {
+                console.error('no button');
+            }
+        } else {
+            console.error("like/unlike failure");
+        }
+        location.reload();
+    }
+
+    async function onLikeComment(event: MouseEvent) {
+        const button = event.currentTarget as HTMLButtonElement;
+        const commentId = parseInt(button.dataset.commentId || '0');
+        const response = await fetch(`/posts/${data.post.id}/comment-likes`, {
+            method: "POST",
+            body: JSON.stringify({
+                commentId: commentId,
+            }),
+        });
+        if (response.ok) {
+            const updatedData = await response.json();
+            //need below undefined check to avoid UI glitching onclick (don't remove)
+            if (updatedData && updatedData.likes !== undefined) {
+                const commentElement = document.getElementById(`comment-likes-${commentId}`);
+                if (commentElement) {
+                    commentElement.textContent = `👍 Likes: ${updatedData.likes}`;
+                } else {
+                    console.error('No comment element found for update');
+                }
+                setTimeout(() => {
+                    location.reload();
+                }, 100);
+            } else {
+                console.error('Invalid updated data structure');
+            }
+        } else {
+            console.error("Like/unlike failure for comment");
+        }
+        location.reload();
     }
 </script>
 
@@ -12,18 +64,19 @@
     <p>{data.post.description || "This is a blank post. Add your content here!"}</p>
     <p>👍 Likes: {data.post.likes}<br>Comments: {data.comments.length}</p>
     {#if data.isAuthor}
-        <button onclick={ onDelete }>Delete Post</button>
+        <button onclick={onDelete}>Delete Post</button>
     {/if}
+    <button id="like-button-{data.post.id}" data-post-id={data.post.id} onclick={onLike}>Like</button>
 </div>
-
 <section class="comments">
     <h2>Comments</h2>
     {#if data.comments.length > 0}
         <div class="comment-list">
-            {#each data.comments as comment}
+            {#each data.comments as comment (comment.id)}
                 <div class="comment">
                     <p><strong>{comment.username}</strong>: {comment.text}</p>
-                    <span>👍 Likes: {comment.likes}</span>
+                    <span id="comment-likes-{comment.id}">👍 Likes: {comment.likes}</span>
+                    <button class="comment-like-button" data-comment-id={comment.id} onclick={onLikeComment}>Like</button>
                 </div>
             {/each}
         </div>
@@ -31,7 +84,6 @@
         <p>No comments.</p>
     {/if}
 </section>
-
 <form method="post" class="comment-form">
     <textarea name="description" placeholder="Post your reply" required></textarea>
     <button type="submit">Post Comment</button>
@@ -95,7 +147,7 @@
     }
 
     button {
-        background-color: deepskyblue;
+        background-color: dodgerblue;
         color: white;
         padding: 10px;
         border-radius: 5px;
@@ -103,6 +155,18 @@
         cursor: pointer;
         font-weight: bold;
         width: 10%;
+    }
+
+    .comment-like-button {
+        background-color: dodgerblue;
+        color: white;
+        padding: 5px;
+        border-radius: 5px;
+        border: none;
+        cursor: pointer;
+        font-weight: bold;
+        width: 5%;
+        margin-top: 5px;
     }
 
     button:hover {
