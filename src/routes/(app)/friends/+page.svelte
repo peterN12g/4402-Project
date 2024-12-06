@@ -38,7 +38,7 @@
 <div class="tabs">
     <button class="tab {activeTab === 'friends' ? 'active' : ''}" onclick={() => showTab("friends")} aria-pressed="{activeTab === 'friends'}">Friends</button>
     <button class="tab {activeTab === 'requests' ? 'active' : ''}" onclick={() => showTab("requests")} aria-pressed="{activeTab === 'requests'}">Requests</button>
-    <button class="tab {activeTab === 'users' ? 'active' : ''}" onclick={() => showTab("users")} aria-pressed="{activeTab === 'users'}">Users</button>
+    <button class="tab {activeTab === 'users' ? 'active' : ''}" onclick={() => showTab("users")} aria-pressed="{activeTab === 'users'}">Add Friends</button>
 </div>
 <div id="friends" class="content {activeTab === 'friends' ? '' : 'hidden'}">
     <div class="friend-list">
@@ -68,8 +68,12 @@
     <div class="friend-list">
         <div class="friend-request">
             <p><strong>Name:</strong> {nonfriend.username}</p>
-            <p><strong>Full name:</strong>{nonfriend.full_name}</p> 
-            <button class="add" onclick={() => sendRequest(nonfriend.username)}>Friend Request</button>
+            <p><strong>Full name:</strong>{nonfriend.full_name}</p>
+            {#if nonfriend.pending}
+                <p>Friend request pending</p>
+            {:else}
+                <button class="add" onclick={() => sendRequest(nonfriend.username)}>Send Friend Request</button>
+            {/if}
         </div>
     </div>
     {/each}
